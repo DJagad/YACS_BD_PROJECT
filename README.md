@@ -4,7 +4,11 @@ Yet Another Centralized Schedular
 So now in our design we have 3 files for the implementation of YACS master.py, worker.py and requests.py. We are using the config.json file for the machine config
 The job requests are received on the port 5000 and listens to the updates on port 5001
 
-So now in our master.py this is how our implementation goes like, first we make our own dictionaries to store the worker details like their id’s, the slots and free slots 
+# Code to run Master - python3 Master.py config.json {Scheduling Algorithm}
+
+# How to Run the Master File
+
+So now in our master.py this is how our implementation goes like, first we make our own dictionaries to store the worker details like their id’s, the slots and free slots
 
 Then using a helper LaunchTask function which is used in the scheduling algorithms to send the tasks to the workers. First we are decrementing the number of free slots for the workers based on their id’s then make a socket connection with the workers and add the job details then we note the start time for logs, send task to the worker close the connection.
 
@@ -25,6 +29,7 @@ Thread2 updateSlots():  So in the second thread we are allocating to a function 
 
 Thread3 monitorReduce(): So in the third thread we are allocating to a function called monitorReduce() which is in the master, first we make a list to keep track of reduce tasks that have already been scheduled, now we make a copy of scheduling pool, then we are comparing the status and job id which are not scheduled that is to check if all map tasks are complete and not already scheduled, then we add the task to list of scheduled tasks and then pick a scheduling algorithm which is passed as the argument. We can refer to the flowchart below to understand the workflow.
 
+# Code to run Master - python3 worker.py {Worker_Port} {Worker_Id}
 
 Now let’s checkup on the worker threads 
 
