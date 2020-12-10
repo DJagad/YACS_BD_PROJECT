@@ -86,6 +86,29 @@ def roundRobin(job_id, tasks, job_type):
 		config_lock.release()
 		launchTask(w_id, job_id, job_type, task)
 
+"""
+def roundRobin(job_id, tasks, job_type):
+	#print("I like Round Robin.\n")
+	config_lock.acquire()
+	w_id = 0
+	config_lock.release()
+	for task in tasks:
+		config_lock.acquire()
+		#print("----- ", threading.current_thread().name, " RR acquired lock.")
+		config2 = copy.deepcopy(config)
+		config2.sort(key = lambda x: x['worker_id'])
+		#w_id = 0
+		if(config2[w_id]['free_slots']>=0):				# While current worker has no free slots
+			w_id = (w_id+1)%3					# pick the next
+			config_lock.release()
+			time.sleep(2)
+			config_lock.acquire()
+			config2 = copy.deepcopy(config)
+
+		config_lock.release()
+		launchTask(w_id, job_id, job_type, task)
+
+"""		
 		
 def leastLoaded(job_id, tasks, job_type):
 	for task in tasks:
